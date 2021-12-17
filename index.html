@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="style.css">
+    <title>세렝게티 동물 테스트</title>
+</head>
+<body class="container">
+    <article class="start">
+        <h1 class="mt-5 text-center">나랑 꼭 닮은 세렝게티 동물은?</h1>
+        <button type="button" class="btn btn-primary mt-5" onclick="start()">테스트 시작하기</button>
+    </article>
+    <article class="question">
+        <div class="progress mt-5">
+            <div class="progress-bar" role="progressbar" style="width: calc(100/12*1%)"></div>
+        </div>
+        <h2 id="title" class="text-center mt-5">문제</h2>
+        <input id="type" type="hidden" value="EI">
+        <button id="A" type="button" class="btn btn-primary mt-5">Primary</button>
+        <button id="B" type="button" class="btn btn-primary mt-5">Primary</button>
+    </article>
+    <article class="result">
+        <img id="img" src="lion.jpg" alt="사자타입" class="rounded-circle mt-5">
+        <h2 id="animal" class="text-center mt-5">동물이름</h2>
+        <h3 id="explain" class="text-center mt-5">설명</h3>
+    </article>
+    <input type="hidden" value="0" id="EI">
+    <input type="hidden" value="0" id="SN">
+    <input type="hidden" value="0" id="TF">
+    <input type="hidden" value="0" id="JP">
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script>
+        let num = 1;
+        let q = {
+            1: {"title" : " 문제 1번", "type": "EI", "A": "E", "B": "I"},
+            2: {"title" : " 문제 2번", "type": "EI", "A": "E", "B": "I"},
+            3: {"title" : " 문제 3번", "type": "EI", "A": "E", "B": "I"},
+            4: {"title" : " 문제 4번", "type": "SN", "A": "S", "B": "N"},
+            5: {"title" : " 문제 5번", "type": "SN", "A": "S", "B": "N"},
+            6: {"title" : " 문제 6번", "type": "SN", "A": "S", "B": "N"},
+            7: {"title" : " 문제 7번", "type": "TF", "A": "T", "B": "F"},
+            8: {"title" : " 문제 8번", "type": "TF", "A": "T", "B": "F"},
+            9: {"title" : " 문제 9번", "type": "TF", "A": "T", "B": "F"},
+            10: {"title" : " 문제 10번", "type": "JP", "A": "J", "B": "P"},
+            11: {"title" : " 문제 11번", "type": "JP", "A": "J", "B": "P"},
+            12: {"title" : " 문제 12번", "type": "JP", "A": "J", "B": "P"},
+        }
+        let result = {
+            "ISTJ": {"animal" : "하마", "explain": "ISTJ 하마같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ISTP": {"animal" : "거북이", "explain": "ISTP 거북이같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ISFP": {"animal" : "토끼", "explain": "ISFP 토끼같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ISFJ": {"animal" : "말", "explain": "ISFJ 말같은 MBTI입니다.", "img": "hipo.jpg"},
+            "INFP": {"animal" : "사자", "explain": "INFP 사자같은 MBTI입니다.", "img": "lion.jpg"},
+            "INFJ": {"animal" : "참새", "explain": "INFJ 참새같은 MBTI입니다.", "img": "hipo.jpg"},
+            "INTP": {"animal" : "고래", "explain": "INTP 고래같은 MBTI입니다.", "img": "hipo.jpg"},
+            "INTJ": {"animal" : "개구리", "explain": "INTJ 개구리같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ENTP": {"animal" : "낙타", "explain": "ENTP 낙타같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ENTJ": {"animal" : "돌고래", "explain": "ENTJ 돌고래같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ENFP": {"animal" : "상어", "explain": "ENFP 상어같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ENFJ": {"animal" : "호랑이", "explain": "ENFJ 호랑이같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ESFP": {"animal" : "악어", "explain": "ESFP 악어같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ESFJ": {"animal" : "독수리", "explain": "ESFJ 독수리같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ESTP": {"animal" : "앵무새", "explain": "ESTP 앵무새같은 MBTI입니다.", "img": "hipo.jpg"},
+            "ESTJ": {"animal" : "기린", "explain": "ESTJ 기린같은 MBTI입니다.", "img": "hipo.jpg"},
+        }
+        function start(){
+            $(".question").show();
+            $(".start").hide();
+            next();
+        }
+        $("#A").click(function(){
+            var type = $("#type").val();
+            var preValue = $("#"+type).val();
+            $("#"+type).val(parseInt(preValue)+1);
+            next();
+        });
+        $("#B").click(function(){
+            next();
+        })
+        function next() {
+            if(num == 13){ 
+                $(".question").hide();
+                $(".start").hide();
+                $(".result").show();
+                let mbti = "";
+                $("#EI").val() < 2 ? mbti += "I" : mbti += "E";
+                $("#SN").val() < 2 ? mbti += "N" : mbti += "S";
+                $("#TF").val() < 2 ? mbti += "F" : mbti += "T";
+                $("#JP").val() < 2 ? mbti += "P" : mbti += "J";
+                $("#img").attr("src", result[mbti]["img"]);
+                $("#animal").html(result[mbti]["animal"]);
+                $("#explain").html(result[mbti]["explain"]);
+            } else{
+            $(".progress-bar").attr('style', 'width: calc(100/12*'+num+'%)')
+            $("#title").html(q[num]["title"]);
+            $("#type").val(q[num]["type"]);
+            $("#A").html(q[num]["A"]);
+            $("#B").html(q[num]["B"]);
+            num++;
+            }
+        }
+    </script>
+</body>
+</html>
